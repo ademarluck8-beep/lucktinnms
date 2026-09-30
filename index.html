@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+  >
+
+  <meta
+    name="theme-color"
+    content="#080b18"
+  >
+
+  <title>LUCKTINNMS - Jogo da Memória</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- SUPABASE -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    defer
+  ></script>
+
+  <script
+    src="script.js"
+    defer
+  ></script>
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       TELA INICIAL / CAPA
+       ===================================================== -->
+
+  <section
+    id="homeScreen"
+    class="tela ativa home-capa"
+  >
+
+    <div class="capa-conteudo">
+
+
+      <!-- ÁREA CLICÁVEL SOBRE "JOGAR" DA IMAGEM -->
+
+      <button
+        id="playBtn"
+        class="capa-area-jogar"
+        type="button"
+        aria-label="Jogar"
+      ></button>
+
+
+      <!-- ÁREA CLICÁVEL SOBRE "CRIAR SALA" DA IMAGEM -->
+
+      <button
+        id="createCoverBtn"
+        class="capa-area-criar"
+        type="button"
+        aria-label="Criar sala"
+      ></button>
+
+
+      <!-- MENU QUE APARECE SOBRE A CAPA -->
+
+      <div
+        id="menuJogo"
+        class="menu-jogo"
+      >
+
+        <div class="menu-caixa">
+
+
+          <button
+            id="fecharMenuBtn"
+            class="fechar-menu"
+            type="button"
+            aria-label="Fechar"
+          >
+            ×
+          </button>
+
+
+          <div class="menu-titulo">
+            🧠
+          </div>
+
+
+          <h2>
+            LUCKTINNMS
+          </h2>
+
+
+          <p class="menu-subtitulo">
+            JOGO DA MEMÓRIA
+          </p>
+
+
+          <label for="nameInput">
+            Seu nome
+          </label>
+
+
+          <input
+            id="nameInput"
+            type="text"
+            placeholder="Digite seu nome"
+            maxlength="20"
+            autocomplete="nickname"
+          >
+
+
+          <button
+            id="createRoomBtn"
+            class="btn principal"
+            type="button"
+          >
+            🏠 CRIAR SALA
+          </button>
+
+
+          <div class="separador">
+            <span>OU</span>
+          </div>
+
+
+          <label for="roomInput">
+            Código da sala
+          </label>
+
+
+          <input
+            id="roomInput"
+            type="text"
+            placeholder="Ex: ABC123"
+            maxlength="6"
+            autocomplete="off"
+            autocapitalize="characters"
+          >
+
+
+          <button
+            id="joinRoomBtn"
+            class="btn secundario"
+            type="button"
+          >
+            🚪 ENTRAR NA SALA
+          </button>
+
+
+          <button
+            id="fecharMenuBtn2"
+            class="btn sair"
+            type="button"
+          >
+            ← VOLTAR
+          </button>
+
+
+          <p
+            id="homeMessage"
+            class="mensagem"
+          ></p>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       TELA DA SALA
+       ===================================================== -->
+
+  <section
+    id="roomScreen"
+    class="tela"
+  >
+
+    <div class="container">
+
+
+      <div class="topo">
+
+        <h1>
+          🏠 Sala
+        </h1>
+
+        <div
+          id="roomCode"
+          class="codigo"
+        >
+          ------
+        </div>
+
+      </div>
+
+
+      <div class="card painel sala-painel">
+
+
+        <p class="texto-centro">
+          Compartilhe este código com seus amigos:
+        </p>
+
+
+        <div
+          id="roomCodeGrande"
+          class="codigo-grande"
+        >
+
+          <span id="roomCodeDisplay">
+            ------
+          </span>
+
+        </div>
+
+
+        <button
+          id="copyCodeBtn"
+          class="btn secundario"
+          type="button"
+        >
+          📋 COPIAR CÓDIGO
+        </button>
+
+
+        <div class="linha"></div>
+
+
+        <h2>
+          👥 Jogadores
+        </h2>
+
+
+        <div
+          id="playersList"
+          class="players-list"
+        >
+
+          <p>
+            Aguardando jogadores...
+          </p>
+
+        </div>
+
+
+        <p
+          id="roomMessage"
+          class="mensagem"
+        >
+          Aguardando...
+        </p>
+
+
+        <button
+          id="startGameBtn"
+          class="btn principal btn-start"
+          type="button"
+        >
+          🎮 COMEÇAR JOGO
+        </button>
+
+
+        <button
+          id="leaveRoomBtn"
+          class="btn sair"
+          type="button"
+        >
+          🚪 SAIR DA SALA
+        </button>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       TELA DO JOGO
+       ===================================================== -->
+
+  <section
+    id="gameScreen"
+    class="tela"
+  >
+
+    <div class="container jogo-container">
+
+
+      <div class="game-top">
+
+
+        <div>
+
+          <h1>
+            🧠 LUCKTINNMS
+          </h1>
+
+          <p id="gameRoomCode">
+            Sala: ------
+          </p>
+
+        </div>
+
+
+        <div
+          id="gameMessage"
+          class="game-message"
+        >
+          Encontre os pares!
+        </div>
+
+
+      </div>
+
+
+      <!-- TABULEIRO -->
+
+      <div
+        id="gameBoard"
+        class="game-board"
+      ></div>
+
+
+      <button
+        id="backRoomBtn"
+        class="btn secundario voltar"
+        type="button"
+      >
+        ← VOLTAR PARA SALA
+      </button>
+
+
+    </div>
+
+  </section>
+
+
+</body>
+
+</html>
